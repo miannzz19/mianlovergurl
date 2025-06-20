@@ -151,9 +151,10 @@
  function openLetter() {
   document.getElementById('envelope').style.display = 'none';
   document.getElementById('confession').style.display = 'flex';
-  music.play(); // 
-  showNextMessage();
-}
+  music.play().catch((e) => {
+  console.log("Autoplay failed:", e);
+});
+
 
 
   let index = 0;
