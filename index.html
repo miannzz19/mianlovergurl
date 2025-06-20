@@ -124,7 +124,8 @@
 </div>
 
 <audio id="bg-music" autoplay loop>
-  <source src="c:\Users\Acer\Downloads\songbali.mp3" type="audio/mp3">
+  <source src="songbali.mp3" type="audio/mp3">
+
   Your browser does not support audio.
 </audio>
 
@@ -146,11 +147,13 @@
   const music = document.getElementById('bg-music');
   const musicBtn = document.getElementById('musicBtn');
 
-  function openLetter() {
-    document.getElementById('envelope').style.display = 'none';
-    document.getElementById('confession').style.display = 'flex';
-    showNextMessage();
-  }
+ function openLetter() {
+  document.getElementById('envelope').style.display = 'none';
+  document.getElementById('confession').style.display = 'flex';
+  music.play(); // 
+  showNextMessage();
+}
+
 
   let index = 0;
 
