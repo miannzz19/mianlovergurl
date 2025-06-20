@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Little Confession</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to top, #1e1e3f, #3d1f4c);
+      font-family: 'Dancing Script', cursive;
+      overflow: hidden;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #envelope {
+      width: 300px;
+      height: 200px;
+      background: #ffcdd2;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    #envelope::before, #envelope::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    #envelope::before {
+      top: 0;
+      left: 0;
+      border-width: 100px 150px 0 150px;
+      border-color: #e57373 transparent transparent transparent;
+    }
+    #envelope::after {
+      bottom: 0;
+      left: 0;
+      border-width: 0 150px 100px 150px;
+      border-color: transparent transparent #f48fb1 transparent;
+    }
+    #confession {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to top, #1e1e3f, #3d1f4c);
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+    #message {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 26px;
+      line-height: 1.8;
+      text-align: center;
+      color: #fff;
+      margin-top: 60px;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .signature {
+      margin-top: 40px;
+      font-size: 28px;
+      color: #ffc1e3;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+    .reply-button, .music-toggle {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      transition: background-color 0.3s;
+    }
+    .reply-button:hover, .music-toggle:hover {
+      background-color: #ffa6b8;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="envelope" onclick="openLetter()"></div>
+
+<div id="confession">
+  <div id="message"></div>
+  <div class="signature" id="signature"></div>
+  <button class="reply-button" onclick="window.open('mailto:your-email@example.com')">Reply to me?</button>
+  <button class="music-toggle" onclick="toggleMusic()" id="musicBtn">Pause Music</button>
+</div>
+
+<audio id="bg-music" autoplay loop>
+  <source src="c:\Users\Acer\Downloads\songbali.mp3" type="audio/mp3">
+  Your browser does not support audio.
+</audio>
+
+<script>
+  const messages = [
+    "HAAHAH... I need to tell you something.",
+    "We've been friends for a while, and that’s meant so much to me.",
+    "But lately... I’ve felt something more.",
+    "You bring light into my life in ways I didn’t know I needed.",
+    "You calm my storms, and make the world feel safer.",
+    "I know dili ko perfect and daghag bad sides pero I'm willing to change.",
+    "Because you mean that much to me.",
+    "I'm not expecting anything HAHAH weird jd ni or ma shock ka pero atleast naingon na nako",
+    "I like you genuinely."
+  ];
+
+  const msgEl = document.getElementById('message');
+  const signatureEl = document.getElementById('signature');
+  const music = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('musicBtn');
+
+  function openLetter() {
+    document.getElementById('envelope').style.display = 'none';
+    document.getElementById('confession').style.display = 'flex';
+    showNextMessage();
+  }
+
+  let index = 0;
+
+  function showNextMessage() {
+    if (index < messages.length) {
+      msgEl.innerHTML = '';
+      const text = messages[index];
+      let charIndex = 0;
+
+      const typeInterval = setInterval(() => {
+        msgEl.textContent += text.charAt(charIndex);
+        charIndex++;
+        if (charIndex === text.length) {
+          clearInterval(typeInterval);
+          index++;
+          setTimeout(showNextMessage, 2500);
+        }
+      }, 50);
+    } else {
+      signatureEl.innerHTML = "– With all my heart, <br> <b>Mian 🌷</b>";
+    }
+  }
+
+  function toggleMusic() {
+    if (music.paused) {
+      music.play();
+      musicBtn.innerText = "Pause Music";
+    } else {
+      music.pause();
+      musicBtn.innerText = "Play Music";
+    }
+  }
+
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.left = Math.random() * window.innerWidth + 'px';
+    star.style.top = Math.random() * window.innerHeight + 'px';
+    star.style.animationDuration = 2 + Math.random() * 3 + 's';
+    document.body.appendChild(star);
+  }
+</script>
+
+</body>
+</html>
